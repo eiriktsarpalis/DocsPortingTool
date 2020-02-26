@@ -1,5 +1,6 @@
 ﻿using DocsPortingTool.Docs;
 using Shared;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -90,7 +91,7 @@ namespace DocsPortingTool
 
         #region Public methods
 
-        public static string GetAttributeValue(XElement parent, string name, bool errorCheck=false)
+        public static string GetAttributeValue(XElement parent, string name, bool errorCheck = false)
         {
             if (parent == null)
             {

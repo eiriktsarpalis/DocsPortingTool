@@ -34,6 +34,19 @@ namespace DocsPortingTool.Docs
         public abstract List<DocsParameter> Parameters { get; }
         public abstract List<DocsParam> Params { get; }
 
+        private string _docIdEscaped = null;
+        public string DocIdEscaped
+        {
+            get
+            {
+                if (_docIdEscaped == null)
+                {
+                    _docIdEscaped = DocId.Replace("<", "{").Replace(">", "}").Replace("&lt;", "{").Replace("&gt;", "}");
+                }
+                return _docIdEscaped;
+            }
+        }
+
         public DocsParam SaveParam(XElement xeTripleSlashParam)
         {
             XElement xeDocsParam = new XElement(xeTripleSlashParam.Name, xeTripleSlashParam.Value);

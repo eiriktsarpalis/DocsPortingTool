@@ -127,14 +127,14 @@ namespace DocsPortingTool
             {
                 if (tsMember.Name.StartsWith("T:"))
                 {
-                    foreach (DocsType dType in DocsComments.Containers.Where(x => x.DocId == tsMember.Name))
+                    foreach (DocsType dType in DocsComments.Containers.Where(x => x.DocIdEscaped == tsMember.Name))
                     {
                         PortMissingCommentsForContainer(tsMember, dType);
                     }
                 }
                 else
                 {
-                    foreach (DocsMember dMember in DocsComments.Members.Where(x => x.DocId == tsMember.Name))
+                    foreach (DocsMember dMember in DocsComments.Members.Where(x => x.DocIdEscaped == tsMember.Name))
                     {
                         PortMissingCommentsForMember(tsMember, dMember);
                     }
@@ -145,7 +145,7 @@ namespace DocsPortingTool
 
         private static void PortMissingCommentsForContainer(TripleSlashMember tsMemberToPort, DocsType dTypeToUpdate)
         {
-            if (tsMemberToPort.Name == dTypeToUpdate.DocId)
+            if (tsMemberToPort.Name == dTypeToUpdate.DocIdEscaped)
             {
                 // The triple slash member is referring to the base type (container) in the docs xml
                 if (!IsEmpty(tsMemberToPort.Summary) && IsEmpty(dTypeToUpdate.Summary))

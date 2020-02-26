@@ -10,11 +10,16 @@ namespace DocsPortingTool.Docs
     {
         private XElement XEMember = null;
 
+        private string _memberName = null;
         public string MemberName
         {
             get
             {
-                return XmlHelper.GetAttributeValue(XEMember, "MemberName");
+                if (_memberName == null)
+                {
+                    _memberName = XmlHelper.GetAttributeValue(XEMember, "MemberName");
+                }
+                return _memberName;
             }
         }
 
@@ -54,6 +59,7 @@ namespace DocsPortingTool.Docs
                 return _docId;
             }
         }
+
         public string MemberType
         {
             get
