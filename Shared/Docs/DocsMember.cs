@@ -1,5 +1,4 @@
-﻿using Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -8,6 +7,7 @@ namespace DocsPortingTool.Docs
 {
     public class DocsMember : DocsAPI
     {
+        public override string Identifier => "MEMBER";
         private XElement XEMember = null;
 
         private string _memberName = null;
@@ -223,7 +223,7 @@ namespace DocsPortingTool.Docs
                 }
             }
         }
-        public string Summary
+        public override string Summary
         {
             get
             {
@@ -243,7 +243,7 @@ namespace DocsPortingTool.Docs
                 }
             }
         }
-        public string Remarks
+        public override string Remarks
         {
             get
             {

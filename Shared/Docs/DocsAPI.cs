@@ -1,4 +1,4 @@
-﻿using Shared;
+﻿using DocsPortingTool;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +10,7 @@ namespace DocsPortingTool.Docs
 {
     public interface IDocsAPI
     {
+        public abstract string Identifier { get; }
         public abstract XDocument XDoc { get; set; }
         public abstract bool Changed { get; set; }
         public abstract string FilePath { get; set; }
@@ -18,13 +19,16 @@ namespace DocsPortingTool.Docs
         public abstract XElement Docs { get; }
         public abstract List<DocsParameter> Parameters { get; }
         public abstract List<DocsParam> Params { get; }
+        public abstract string Summary { get; set; }
+        public abstract string Remarks { get; set; }
         public abstract DocsParam SaveParam(XElement xeCoreFXParam);
         void AddChildAsNormalElement(XElement xeParent, XElement xeChild, bool errorCheck = false);
         void FormatAsNormalElement(XElement xeChild);
     }
 
-    public abstract class DocsAPI : IDocsAPI
+    public abstract class DocsAPI : IDocsAPI, IDisposable
     {
+        public abstract string Identifier { get; }
         public XDocument XDoc { get; set; } = null;
         public bool Changed { get; set; } = false;
         public string FilePath { get; set; } = string.Empty;
@@ -33,6 +37,8 @@ namespace DocsPortingTool.Docs
         public abstract XElement Docs { get; }
         public abstract List<DocsParameter> Parameters { get; }
         public abstract List<DocsParam> Params { get; }
+        public abstract string Summary { get; set; }
+        public abstract string Remarks { get; set; }
 
         private string _docIdEscaped = null;
         public string DocIdEscaped
@@ -99,6 +105,12 @@ namespace DocsPortingTool.Docs
             }
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            Log.Warning(false, $"Saving file: {FilePath}");
+            XmlHelper.SaveXml(XDoc, FilePath, OriginalEncoding);
         }
     }
 }

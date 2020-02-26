@@ -1,5 +1,5 @@
 ﻿using DocsPortingTool.Docs;
-using Shared;
+using DocsPortingTool;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -172,12 +172,12 @@ namespace DocsPortingTool
 
         #region Public methods
 
-        public static void SaveXml(XDocument xDoc, string filePath)
+        public static void SaveXml(XDocument xDoc, string filePath, Encoding originalEncoding)
         {
             if (Configuration.Save)
             {
                 // These settings prevent the addition of the <xml> element on the first line and will preserve indentation+endlines
-                XmlWriterSettings xws = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true, Encoding = Encoding.GetEncoding("ISO-8859-1") };
+                XmlWriterSettings xws = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true, Encoding = originalEncoding };
                 using (XmlWriter xw = XmlWriter.Create(filePath, xws))
                 {
                     xDoc.Save(xw);

@@ -1,4 +1,4 @@
-﻿using Shared;
+﻿using DocsPortingTool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,7 @@ namespace DocsPortingTool.Docs
     /// </summary>
     public class DocsType : DocsAPI
     {
+        public override string Identifier => "TYPE";
         private XElement XERoot = null;
 
         private string _name = null;
@@ -206,7 +207,7 @@ namespace DocsPortingTool.Docs
         }
 
         private string _summary = null;
-        public string Summary
+        public override string Summary
         {
             get
             {
@@ -231,7 +232,7 @@ namespace DocsPortingTool.Docs
             }
         }
 
-        public string Remarks
+        public override string Remarks
         {
             get
             {
